@@ -10,7 +10,7 @@ const DressBuilderPage = () => {
     return (
         <>
             <Container maxWidth="sm">
-                <Grid container spacing={2}>
+                <Grid container spacing={2} justify="center" alignItems="center">
                     <Grid item xs={12}>
                         <FeatureForm />
                     </Grid>

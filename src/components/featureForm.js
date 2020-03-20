@@ -54,15 +54,21 @@ const FeatureForm = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log({ state });
-        if (!isFeatureCombinationInvalid(state.bodiceStyle, state.skirtSilhouette)) {
-            dispatch(combineFeatures(state.skirtSilhouette, state.bodiceStyle));
-            e.target.reset();
-            return true;
-        } else {
+        if (!state.skirtSilhouette) {
+            alert('Skirt silhouette entry is required. Pls select an entry.');
+            return false;
+        }
+        if (!state.bodiceStyle) {
+            alert('Bodice style entry is required. Pls select an entry.');
+            return false;
+        }
+        if (isFeatureCombinationInvalid(state.bodiceStyle, state.skirtSilhouette)) {
             alert(`Combination of ${state.bodiceStyle} ${state.skirtSilhouette} is not permitted`);
             return false;
         }
+        dispatch(combineFeatures(state.skirtSilhouette, state.bodiceStyle));
+        e.target.reset();
+        return true;
     };
 
     const handleChange = event => {
