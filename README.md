@@ -10,6 +10,17 @@ Combinations that are not permitted:
 
 ○ Sheath and Structured
 
+
+This SPA is implemented in
+ 
+○ React with React Hooks
+
+○ Redux
+
+○ Material UI components
+
+○ React Hook Form for form library
+
 ### Guidelines and Hints
 
 #### Install node v8.17.0 or above
