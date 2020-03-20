@@ -16,16 +16,17 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const FeatureSelect = ({ register, name, label, options, handleChange, value}) => {
+const FeatureSelect = ({ name, label, options, handleChange, value }) => {
     const classes = useStyles();
     const labelId = `label-${name}`;
 
+    /*
     useEffect(() => {
         register({ name });
     }, [register, name]);
-
+*/
     return (
-        <FormControl required className={classes.formControl}>
+        <FormControl className={classes.formControl}>
             <InputLabel id={labelId}>{label}</InputLabel>
             <Select
                 name={name}

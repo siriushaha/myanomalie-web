@@ -47,20 +47,30 @@ const FeatureForm = (props) => {
     const bodiceStyle = useSelector(state => state.bodiceStyle);
     const skirtSilhouette = useSelector(state => state.skirtSilhouette);
     const [state, setState ] = useState({ skirtSilhouette, bodiceStyle});
-    const { register, handleSubmit, setValue } = useForm();
+    const isFeatureCombinationInvalid = (bodiceStyle, skirtSilhouette) => {
+        return (bodiceStyle === 'unstructured' && skirtSilhouette === 'ballgown') ||
+               (bodiceStyle === 'structured' && skirtSilhouette === 'sheath')
+    };
+
     const onSubmit = (e) => {
         e.preventDefault();
         console.log({ state });
-        dispatch(combineFeatures(state.skirtSilhouette, state.bodiceStyle));
-        e.target.reset();
+        if (!isFeatureCombinationInvalid(state.bodiceStyle, state.skirtSilhouette)) {
+            dispatch(combineFeatures(state.skirtSilhouette, state.bodiceStyle));
+            e.target.reset();
+            return true;
+        } else {
+            alert(`Combination of ${state.bodiceStyle} ${state.skirtSilhouette} is not permitted`);
+            return false;
+        }
     };
+
     const handleChange = event => {
         const { name, value } = event.target;
         setState({
             ...state,
             [name]: value,
         });
-        // setValue(name, value);
     };
 
     return (
@@ -68,7 +78,6 @@ const FeatureForm = (props) => {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <FeatureSelect
-                        register={register}
                         key="skirtSilhouette"
                         name="skirtSilhouette"
                         label="Skirt Silhouette"
@@ -79,7 +88,6 @@ const FeatureForm = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                     <FeatureSelect
-                        register={register}
                         key="bodiceStyle"
                         name="bodiceStyle"
                         label="Bodice Style"
